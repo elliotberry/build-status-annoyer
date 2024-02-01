@@ -1,0 +1,17 @@
+{
+    "apps": [
+        {
+            "name": "build-sound-server",
+            "script": "./index.js",
+            "merge_logs": true,
+            "max_restarts": 20,
+            "instances": 4,
+            "max_memory_restart": "400M",
+            "env": {
+                "PORT": 9099,
+                "NODE_ENV": "production",
+                "ROOT_URL": "http://localhost"
+            }
+        }
+    ]
+}

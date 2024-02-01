@@ -1,0 +1,17 @@
+{
+    "apps": [
+        {
+            "name": "build-sound-server",
+            "script": "./index.js",
+            "instances": 1,
+            "autorestart": true,
+            "watch": ["./*.js"],
+         
+            "env": {
+                "PORT": 9099,
+                "NODE_ENV": "development",
+                "ROOT_URL": "http://localhost"
+            }
+        }
+    ]
+}
