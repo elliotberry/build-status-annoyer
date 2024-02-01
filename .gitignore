@@ -1,3 +1,5 @@
+#wrangler (cf workers)
+.wrangler
 # Compiled source
 *.com
 *.class
@@ -34,7 +36,7 @@ Temporary Items
 .vagrant/
 
 # Misc
-*.pyc
+*.pyc 
 *.pyo
 *.key
 *.pem
@@ -46,6 +48,10 @@ yarn-error.log
 
 # ignore composer vendor directory
 /vendor
+
+# ignore components loaded via Bower
+/bower_components
+
 # IDE files #
 #############
 *~
