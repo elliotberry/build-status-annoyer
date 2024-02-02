@@ -1,5 +1,5 @@
-import http from 'http';
-import { Readable } from 'stream';
+import http from 'node:http';
+
 import playCachedAudio from './playCachedAudio.js';
 
 const server = http.createServer(async (req, res) => {
