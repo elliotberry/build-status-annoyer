@@ -1,31 +1,37 @@
-import Fastify from 'fastify'
-import playCachedAudio from './playCachedAudio.js'
+import http from 'http';
+import { Readable } from 'stream';
+import playCachedAudio from './playCachedAudio.js';
 
-const fastify = Fastify({ logger: true })
-
-fastify.get('/', async (request, reply) => {
-    await playCachedAudio('hello worlddd')
-    reply.send({ hello: 'world' })
-})
-
-fastify.post('/', async (request, reply) => {
-    try {
-        const { message } = request.body
-        await playCachedAudio(message)
-        return { status: 'Sound played' }
-    } catch (err) {
-        reply.status(500).send(err)
+const server = http.createServer(async (req, res) => {
+    if (req.method === 'GET' && req.url === '/') {
+        await playCachedAudio('hello worlddd');
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({ hello: 'world' }));
+    } else if (req.method === 'POST' && req.url === '/') {
+        try {
+            let body = '';
+            req.on('data', (chunk) => {
+                body += chunk;
+            });
+            req.on('end', async () => {
+                const { message } = JSON.parse(body);
+                await playCachedAudio(message);
+                res.setHeader('Content-Type', 'application/json');
+                res.end(JSON.stringify({ status: 'Sound played' }));
+            });
+        } catch (err) {
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: err.message }));
+        }
+    } else {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Not Found');
     }
-})
+});
 
-const start = async () => {
-    try {
-        await fastify.listen({ port: 9099, host: '0.0.0.0' })
-        console.log(`server listening on ${fastify.server.address().port}`)
-    } catch (err) {
-        fastify.log.error(err)
-        process.exit(1)
-    }
-}
+const port = 9099;
+const host = '0.0.0.0';
 
-start()
+server.listen(port, host, () => {
+    console.log(`Server listening on ${host}:${port}`);
+});
