@@ -6,16 +6,14 @@
     "license": "The Unlicense",
     "scripts": {
         "dev": "pm2-dev dev.pm2.json",
-        "start": "pm2-runtime start ./prod.pm2.json",
-        "docker:run": "docker run -it -p 9099:9099"
+        "start": "pm2-runtime start ./prod.pm2.json"
+
     },
     "type": "module",
     "dependencies": {
         "dotenv": "^16.3.1",
-        "fastify": "^4.25.2",
-      
-        "pm2": "^5.3.0",
-        "tiktok-on-the-clock-but-the-party-dont-stop-no": "elliotberry/tiktok-voice"
+        "pm2": "^5.3.0"
+       
     },
     "devDependencies": {
         "eslint": "^8.29.0",
