@@ -1,17 +1,17 @@
 import Fastify from 'fastify'
-import play from 'tiktok-on-the-clock-but-the-party-dont-stop-no'
+import playCachedAudio from './playCachedAudio.js'
 
 const fastify = Fastify({ logger: true })
 
 fastify.get('/', async (request, reply) => {
-    await play('hello worlddd')
+    await playCachedAudio('hello worlddd')
     reply.send({ hello: 'world' })
 })
 
 fastify.post('/', async (request, reply) => {
     try {
         const { message } = request.body
-        await play(message)
+        await playCachedAudio(message)
         return { status: 'Sound played' }
     } catch (err) {
         reply.status(500).send(err)
