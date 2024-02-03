@@ -13,7 +13,6 @@
     "dependencies": {
         "dotenv": "^16.3.1",
         "pm2": "^5.3.0"
-       
     },
     "devDependencies": {
         "eslint": "^8.29.0",
@@ -45,5 +44,8 @@
             "no-unused-vars": "warn",
             "no-console": "off"
         }
+    },
+    "engines": {
+        "node": ">=18.0.0"
     }
 }

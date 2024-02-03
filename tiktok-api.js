@@ -102,8 +102,6 @@ const voicesArray = [
   'en_female_emotional'
 ];
 
-
-//Voices.SINGING.EN_FEMALE_F08_SALUT_DAMOUR
 const getAudio = async (text, speaker = Voices.ENGLISH.EN_US_001) => {
   text = encodeURI(text);
   const headers = {
@@ -123,6 +121,7 @@ const getAudio = async (text, speaker = Voices.ENGLISH.EN_US_001) => {
     headers: headers,
     method: 'POST',
   });
+  
   if (data.status !== 200) {
     throw new Error(`Failed to fetch: ${data.status}`);
   }
