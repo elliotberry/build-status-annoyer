@@ -3,10 +3,12 @@ import playCachedAudio from './playCachedAudio.js'
 
 const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && req.url === '/') {
-        await playCachedAudio('hello worlddd')
+        console.log('GET /')
+        await playCachedAudio('hello world')
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify({ hello: 'world' }))
     } else if (req.method === 'POST' && req.url === '/') {
+        console.log('POST /')
         try {
             let body = ''
             req.on('data', (chunk) => {
@@ -28,7 +30,7 @@ const server = http.createServer(async (req, res) => {
     }
 })
 
-const port = 9099
+const port = process.env.PORT || 9099
 const host = '0.0.0.0'
 
 server.listen(port, host, () => {
