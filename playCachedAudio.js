@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import fs from 'fs/promises';
 import exec from "./exec.js";
 import { pruneCacheIfNeeded } from './pruneCacheIfNeeded.js';
-import { cacheDir } from './config.js';
+import config from './config.js';
 
 const exists = async (path) => {
   try {
@@ -17,7 +17,7 @@ const exists = async (path) => {
 
 const getCachePath = async (str) => {
   const hash = await crypto.createHash('md5').update(str).digest('hex');
-  return `${cacheDir}/${hash}.mp3`;
+  return `${config.cacheDir}/${hash}.mp3`;
 }
 
 const play = async (path) => {
@@ -26,8 +26,8 @@ const play = async (path) => {
 
 async function playCachedAudio(text, speaker = 'en_us_001') {
   try {
-    if (!await exists(cacheDir)) {
-      await fs.mkdir(cacheDir);
+    if (!await exists(config.cacheDir)) {
+      await fs.mkdir(config.cacheDir);
     }
     await pruneCacheIfNeeded();
     let possiblePath = await getCachePath(text + speaker);

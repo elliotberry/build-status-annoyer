@@ -1,15 +1,15 @@
 import fs from 'fs/promises';
-import { cacheDir, maxCacheSize } from './config.js';
+import config from './config.js';
 
 export async function pruneCacheIfNeeded() {
   try {
     // Replace with your directory path
-    const files = await fs.readdir(cacheDir);
+    const files = await fs.readdir(config.cacheDir);
 
     // Create an array of file stats with access time and size
     const fileStats = await Promise.all(
       files.map(async (fileName) => {
-        const filePath = `${cacheDir}/${fileName}`;
+        const filePath = `${config.cacheDir}/${fileName}`;
         const stats = await fs.stat(filePath);
         return { fileName, accessTime: stats.atimeMs, size: stats.size };
       })
@@ -24,9 +24,9 @@ export async function pruneCacheIfNeeded() {
       totalSize += file.size;
 
       // Check if the total size exceeds the maximum cache size
-      if (totalSize > maxCacheSize) {
+      if (totalSize > config.maxCacheSize) {
         // Delete the file
-        const filePath = `${cacheDir}/${file.fileName}`;
+        const filePath = `${config.cacheDir}/${file.fileName}`;
         await fs.unlink(filePath);
         console.log(`pruned cache: ${file.fileName}`);
 

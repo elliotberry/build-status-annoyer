@@ -1,7 +1,7 @@
 {
     "apps": [
         {
-            "name": "build-sound-server",
+            "name": "build-sound-server-test",
             "script": "./index.js",
             "instances": 1,
             "autorestart": true,
