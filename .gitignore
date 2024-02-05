@@ -10,7 +10,9 @@
 *.env
 # Logs and databases
 *.log
-
+cache/*
+./cache
+cache
 # OS generated files #
 .DS_Store
 .AppleDouble
