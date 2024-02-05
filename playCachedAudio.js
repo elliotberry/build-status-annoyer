@@ -34,16 +34,15 @@ async function playCachedAudio(text, speaker = 'en_us_001') {
     let possiblePath = await getCachePath(text + speaker);
     if (await exists(possiblePath)) {
       logger.info('cache hit');
-      let buf = await fs.readFile(possiblePath);
-      await play(buf);
+     // let buf = await fs.readFile(possiblePath);
+      await play(possiblePath);
       return;
     }
     else {
       logger.info('cache miss');
       let buf = await getAudio(text, speaker);
-      await fs.writeFile (possiblePath, buf);
-      await play(buf);
-
+      await fs.writeFile(possiblePath, buf);
+      await play(possiblePath);
     }
 
   } catch (e) {

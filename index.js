@@ -1,20 +1,22 @@
 import http from 'node:http'
 import playCachedAudio from './playCachedAudio.js'
-
+import logger from './logger.js'
 const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && req.url === '/') {
-        console.log('GET /')
+        logger.info('GET /')
+        logger.info('hello world')
         await playCachedAudio('hello world')
         res.setHeader('Content-Type', 'application/json')
         res.end(JSON.stringify({ hello: 'world' }))
     } else if (req.method === 'POST' && req.url === '/') {
-        console.log('POST /')
+        logger.info('POST /')
         try {
             let body = ''
             req.on('data', (chunk) => {
                 body += chunk
             })
             req.on('end', async () => {
+                console.log(body)
                 const { message } = JSON.parse(body)
                 await playCachedAudio(message)
                 res.setHeader('Content-Type', 'application/json')
@@ -34,7 +36,7 @@ const port = process.env.PORT || 9099
 const host = '0.0.0.0'
 
 server.listen(port, host, () => {
-    console.log(`Server listening on ${host}:${port}`)
+    logger.info(`Server listening on ${host}:${port}`)
 });
 
 process.on('uncaughtException', (err) => {
