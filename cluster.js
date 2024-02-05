@@ -2,13 +2,13 @@ import http from 'node:http'
 import cluster from 'node:cluster'
 import os from 'node:os'
 import playCachedAudio from './playCachedAudio.js'
-
+import logger from './logger.js'
 const maximumEmployees = 4
 
 if (cluster.isMaster) {
     const numCPUs = os.cpus().length
     const maxWorkers = maximumEmployees > numCPUs ? numCPUs : maximumEmployees
-    console.log(`Master ${process.pid} is running`)
+    logger.info(`Master ${process.pid} is running`)
 
     // Fork workers
     for (let i = 0; i < maxWorkers; i++) {
@@ -16,17 +16,17 @@ if (cluster.isMaster) {
     }
 
     cluster.on('exit', (worker, code, signal) => {
-        console.log(`Worker ${worker.process.pid} died`)
+        logger.info(`Worker ${worker.process.pid} died`)
     })
 } else {
     const server = http.createServer(async (req, res) => {
         if (req.method === 'GET' && req.url === '/') {
-            console.log('GET /')
+            logger.info('GET /')
             await playCachedAudio('hello world')
             res.setHeader('Content-Type', 'application/json')
             res.end(JSON.stringify({ hello: 'world' }))
         } else if (req.method === 'POST' && req.url === '/') {
-            console.log('POST /')
+            logger.info('POST /')
             try {
                 let body = ''
                 req.on('data', (chunk) => {
@@ -52,6 +52,6 @@ if (cluster.isMaster) {
     const host = '0.0.0.0'
 
     server.listen(port, host, () => {
-        console.log(`Worker ${process.pid} listening on ${host}:${port}`)
+        logger.info(`Worker ${process.pid} listening on ${host}:${port}`)
     })
 }

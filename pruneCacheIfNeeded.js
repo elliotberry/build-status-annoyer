@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import config from './config.js';
-
+import logger from './logger.js';
 export async function pruneCacheIfNeeded() {
   try {
     // Replace with your directory path
@@ -28,7 +28,7 @@ export async function pruneCacheIfNeeded() {
         // Delete the file
         const filePath = `${config.cacheDir}/${file.fileName}`;
         await fs.unlink(filePath);
-        console.log(`pruned cache: ${file.fileName}`);
+        logger.info(`pruned cache: ${file.fileName}`);
 
       }
     }

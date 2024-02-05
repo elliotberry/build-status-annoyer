@@ -4,6 +4,7 @@ import fs from 'fs/promises';
 import exec from "./exec.js";
 import { pruneCacheIfNeeded } from './pruneCacheIfNeeded.js';
 import config from './config.js';
+import logger from './logger.js';
 
 const exists = async (path) => {
   try {
@@ -32,13 +33,13 @@ async function playCachedAudio(text, speaker = 'en_us_001') {
     await pruneCacheIfNeeded();
     let possiblePath = await getCachePath(text + speaker);
     if (await exists(possiblePath)) {
-      console.log('cache hit');
+      logger.info('cache hit');
       let buf = await fs.readFile(possiblePath);
       await play(buf);
       return;
     }
     else {
-      console.log('cache miss');
+      logger.info('cache miss');
       let buf = await getAudio(text, speaker);
       await fs.writeFile (possiblePath, buf);
       await play(buf);
