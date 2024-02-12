@@ -6,7 +6,8 @@
     "license": "The Unlicense",
     "scripts": {
         "dev": "pm2-dev dev.pm2.json",
-        "start": "pm2 start ./prod.pm2.json"
+        "start": "pm2 start ./prod.pm2.json",
+        "sendtest": "curl -X POST -H \"Content-Type: application/json\" -d '{\"message\":\"test\"}' http://localhost:9099/"
     },
     "type": "module",
     "dependencies": {
