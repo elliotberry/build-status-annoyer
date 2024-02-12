@@ -6,11 +6,12 @@
             "merge_logs": true,
             "max_restarts": 20,
             "instances": 4,
-            "max_memory_restart": "400M",
+            "max_memory_restart": "150M",
             "env": {
                 "NODE_ENV": "production",
                 "PORT": "9099"
-              }
+            },
+            "exec_mode": "cluster"
         }
     ]
 }

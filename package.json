@@ -6,7 +6,7 @@
     "license": "The Unlicense",
     "scripts": {
         "dev": "pm2-dev dev.pm2.json",
-        "start": "pm2-runtime start ./prod.pm2.json"
+        "start": "pm2 start ./prod.pm2.json"
     },
     "type": "module",
     "dependencies": {

@@ -12,6 +12,8 @@
 *.log
 cache/*
 ./cache
+logs/*
+logs
 cache
 # OS generated files #
 .DS_Store
