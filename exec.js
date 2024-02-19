@@ -1,20 +1,30 @@
-import { exec as execCallback } from 'child_process'
+import {spawn} from 'child_process'
 
-function execution(command) {
-    return new Promise(function (resolve, reject) {
-        execCallback(command, (error, stdout, stderr) => {
-            if (error) {
-                reject(error)
-                return
-            }
-            if (stderr) {
-                reject(stderr)
-                return
-            }
+export const execy = async function (cmdStr, cwd=process.cwd()) {
+    return new Promise(function (res, rej) {
+        let cmdArray = cmdStr.split(' ')
+        const args = cmdArray.shift()
+        const cmd = spawn(args, cmdArray, { cwd: cwd })
+        let allData = ''
+        let allError = ''
+        cmd.stdout.on('data', (data) => {
+         
+            allData += data
+        })
 
-            resolve(stdout.trim())
+        cmd.stderr.on('data', (data) => {
+            allError += data
+        })
+
+        cmd.on('close', (code) => {
+            if (code === 0) {
+                res(allData)
+            } else {
+                rej(allError)
+            }
         })
     })
 }
 
-export default execution
+
+export default execy

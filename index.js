@@ -1,7 +1,7 @@
 import http from 'node:http'
 import playCachedAudio from './playCachedAudio.js'
 import logger from './logger.js'
-
+import { Voices, voicesArray } from './voices.js'
 var playing = false
 
 const waitForBody = (req) => {
@@ -16,6 +16,54 @@ const waitForBody = (req) => {
     })
 }
 
+const getVoice = (voice) => {
+    let ret = {
+        voice: 'en_us_001',
+        error: false,
+    }
+
+    if (voice) {
+        if (typeof voice === 'number') {
+            if (voice < 0 || voice >= voicesArray.length) {
+                ret.error =
+                    'Invalid voice, must be a number between 0 and ' +
+                    (voicesArray.length - 1)
+            } else {
+                ret.voice = voicesArray[voice]
+            }
+        }
+        if (typeof voice === 'string') {
+            if (!voicesArray.includes(voice)) {
+                ret.error = 'Invalid voice, must be a string from voicesArray'
+            } else {
+                ret.voice = voice
+            }
+        }
+    }
+    return ret
+}
+
+const getVolume = (volume) => {
+    let ret = {
+        volume: 100,
+        error: false,
+    }
+
+    if (typeof volume !== 'number') {
+        try {
+            ret.volume = parseInt(volume)
+        } catch (e) {
+            ret.error = 'Invalid volume, not parseable as integer'
+        }
+    }
+    if (volume && (typeof volume !== 'number' || volume < 0 || volume > 100)) {
+        ret.error = 'Invalid volume, must be a number between 0 and 100'
+    } else {
+        ret.volume = volume
+    }
+    return ret
+}
+
 const doPlay = async (req, res) => {
     try {
         if (playing) {
@@ -27,29 +75,26 @@ const doPlay = async (req, res) => {
         let body = await waitForBody(req)
 
         logger.info('body:', body)
-        let theVolume = 100
-        const { message, volume } = JSON.parse(body)
-        if (typeof volume !== 'number') {
-            try {
-                theVolume = parseInt(volume)
-            } catch (e) {
-                res.writeHead(400, { 'Content-Type': 'application/json' })
-                res.end(JSON.stringify({ error: 'Invalid volume' }))
-                return
-            }
-        }
-        if (
-            volume &&
-            (typeof volume !== 'number' || volume < 0 || volume > 100)
-        ) {
+
+        const { message, volume, voice } = JSON.parse(body)
+
+        let volInfo = getVolume(volume)
+        let voiceInfo = getVoice(voice)
+        let allErrors = [volInfo.error, voiceInfo.error].filter(
+            (e) => e === true
+        )
+        if (allErrors.length > 0) {
             res.writeHead(400, { 'Content-Type': 'application/json' })
-            res.end(JSON.stringify({ error: 'Invalid volume' }))
+            res.end(JSON.stringify({ error: allErrors.join(', ') }))
             return
-        } else {
-            theVolume = volume
         }
+
         playing = true
-        let cached = await playCachedAudio(message, theVolume) //if volume
+        let cached = await playCachedAudio(
+            message,
+            volInfo.volume,
+            voiceInfo.voice
+        ) //if volume
 
         res.setHeader('Content-Type', 'application/json')
         logger.info('played in', Date.now() - start, 'ms')
