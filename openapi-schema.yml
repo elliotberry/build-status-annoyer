@@ -1,0 +1,82 @@
+openapi: 3.0.0
+info:
+  title: Hella Obnoxious Build Status Notification Server
+  description: An API to play cached audio messages of The TikTok Voice with adjustable volume.
+  version: "1.0"
+servers:
+  - url: http://localhost:9099
+    description: Development server
+paths:
+  /:
+    get:
+      summary: Get Hello World Message
+      description: Returns a JSON object with a hello world message.
+      responses:
+        '200':
+          description: A JSON object containing a hello world message.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hello:
+                    type: string
+                    example: world
+    post:
+      summary: Play Audio Message
+      description: Plays a cached audio message with the specified volume.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - message
+              properties:
+                message:
+                  type: string
+                  description: The audio message to play.
+                  example: "Sample audio message"
+                volume:
+                  type: integer
+                  description: The volume level for the audio message (0 to 100).
+                  example: 75
+      responses:
+        '200':
+          description: Audio message played successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Sound played
+                  cached:
+                    type: boolean
+                    example: false
+                  time:
+                    type: integer
+                    description: Time taken to play the message in milliseconds.
+                    example: 150
+        '400':
+          description: Bad request (e.g., invalid volume).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+components:
+  schemas: {}

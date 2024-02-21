@@ -1,0 +1,289 @@
+= Audio Player API
+team@openapitools.org
+1.0
+:toc: left
+:numbered:
+:toclevels: 4
+:source-highlighter: highlightjs
+:keywords: openapi, rest, Audio Player API
+:specDir: 
+:snippetDir: 
+:generator-template: v1 2019-12-20
+:info-url: https://openapi-generator.tech
+:app-name: Audio Player API
+
+[abstract]
+.Abstract
+An API to play cached audio messages with adjustable volume.
+
+
+// markup not found, no include::{specDir}intro.adoc[opts=optional]
+
+
+
+== Endpoints
+
+
+[.Default]
+=== Default
+
+
+[.rootGet]
+==== rootGet
+
+`GET /`
+
+Get Hello World Message
+
+===== Description
+
+Returns a JSON object with a hello world message.
+
+
+// markup not found, no include::{specDir}GET/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+
+
+
+
+
+===== Return Type
+
+<<__get_200_response>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.HTTP Response Codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| A JSON object containing a hello world message.
+|  <<__get_200_response>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}GET/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}GET/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :GET/GET.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}GET/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[.rootPost]
+==== rootPost
+
+`POST /`
+
+Play Audio Message
+
+===== Description
+
+Plays a cached audio message with the specified volume.
+
+
+// markup not found, no include::{specDir}POST/spec.adoc[opts=optional]
+
+
+
+===== Parameters
+
+
+====== Body Parameter
+
+[cols="2,3,1,1,1"]
+|===
+|Name| Description| Required| Default| Pattern
+
+| PostRequest
+|  <<PostRequest>>
+| X
+| 
+| 
+
+|===
+
+
+
+
+
+===== Return Type
+
+<<__post_200_response>>
+
+
+===== Content Type
+
+* application/json
+
+===== Responses
+
+.HTTP Response Codes
+[cols="2,3,1"]
+|===
+| Code | Message | Datatype
+
+
+| 200
+| Audio message played successfully.
+|  <<__post_200_response>>
+
+
+| 400
+| Bad request (e.g., invalid volume).
+|  <<__post_400_response>>
+
+
+| 500
+| Internal server error.
+|  <<__post_400_response>>
+
+|===
+
+===== Samples
+
+
+// markup not found, no include::{snippetDir}POST/http-request.adoc[opts=optional]
+
+
+// markup not found, no include::{snippetDir}POST/http-response.adoc[opts=optional]
+
+
+
+// file not found, no * wiremock data link :POST/POST.json[]
+
+
+ifdef::internal-generation[]
+===== Implementation
+
+// markup not found, no include::{specDir}POST/implementation.adoc[opts=optional]
+
+
+endif::internal-generation[]
+
+
+[#models]
+== Models
+
+
+[#Get200Response]
+=== _Get200Response_ 
+
+
+
+[.fields-Get200Response]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| hello
+| 
+| String 
+| 
+|  
+
+|===
+
+
+[#Post200Response]
+=== _Post200Response_ 
+
+
+
+[.fields-Post200Response]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| status
+| 
+| String 
+| 
+|  
+
+| cached
+| 
+| Boolean 
+| 
+|  
+
+| time
+| 
+| Integer 
+| Time taken to play the message in milliseconds.
+|  
+
+|===
+
+
+[#Post400Response]
+=== _Post400Response_ 
+
+
+
+[.fields-Post400Response]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| error
+| 
+| String 
+| 
+|  
+
+|===
+
+
+[#PostRequest]
+=== _PostRequest_ 
+
+
+
+[.fields-PostRequest]
+[cols="2,1,2,4,1"]
+|===
+| Field Name| Required| Type| Description| Format
+
+| message
+| X
+| String 
+| The audio message to play.
+|  
+
+| volume
+| 
+| Integer 
+| The volume level for the audio message (0 to 100).
+|  
+
+|===
+
+
