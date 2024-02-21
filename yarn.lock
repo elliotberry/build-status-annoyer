@@ -1710,6 +1710,11 @@ vizion@~2.2.1:
     ini "^1.3.5"
     js-git "^0.7.8"
 
+wanakana@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.npmjs.org/wanakana/-/wanakana-5.3.1.tgz#e20798fb9687d926d4aad25874bc8e66096818ed"
+  integrity sha512-OSDqupzTlzl2LGyqTdhcXcl6ezMiFhcUwLBP8YKaBIbMYW1wAwDvupw2T9G9oVaKT9RmaSpyTXjxddFPUcFFIw==
+
 which@^2.0.1:
   version "2.0.2"
   resolved "https://registry.npmjs.org/which/-/which-2.0.2.tgz#7c6a8dd0a636a0327e10b59c9286eee93f3f51b1"
