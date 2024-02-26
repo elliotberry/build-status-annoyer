@@ -1,7 +1,7 @@
 import http from 'node:http'
-import playCachedAudio from './playCachedAudio.js'
-import logger from './logger.js'
-import { getVolume, getVoice } from './validation.js'
+import playCachedAudio from './lib/playCachedAudio.js'
+import logger from './lib/logger.js'
+import { getVolume, getVoice } from './lib/validation.js'
 
 var playing = false
 
