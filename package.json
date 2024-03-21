@@ -13,7 +13,7 @@
     "dependencies": {
         "dotenv": "^16.3.1",
         "pm2": "^5.3.0",
-        "wanakana": "^5.3.1",
+        "pretty-ms": "^9.0.0",
         "winston": "^3.11.0"
     },
     "devDependencies": {
