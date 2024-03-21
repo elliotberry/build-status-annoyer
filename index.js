@@ -3,6 +3,7 @@ import logger from './lib/logger.js'
 import home from './lib/home.js'
 import { doPlay } from './lib/doPlay.js'
 import { logRequestDetails } from './lib/logRequestDetails.js'
+import 'dotenv/config'
 
 const server = http.createServer(async (req, res) => {
     try {
@@ -10,6 +11,7 @@ const server = http.createServer(async (req, res) => {
         await logRequestDetails(req)
 
         if (req.method === 'GET' && req.url === '/') {
+            
             logger.info('GET /')
             await home(req, res)
         } else if (req.method === 'POST' && req.url === '/') {

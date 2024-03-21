@@ -5,8 +5,9 @@
     "author": "dad",
     "license": "The Unlicense",
     "scripts": {
-        "dev": "pm2-dev dev.pm2.json",
+        "dev": "pm2-dev index.js --watch --ignore node_modules --ignore ./*/**/*.mp3",
         "start": "pm2 start ./prod.pm2.json",
+        "deploy": "git pull && npm i && pm2 restart build-sound-server",
         "sendtest": "curl -X POST -H \"Content-Type: application/json\" -d '{\"message\":\"test\"}' http://localhost:9099/"
     },
     "type": "module",
