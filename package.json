@@ -67,5 +67,6 @@
     "engines": {
         "node": ">=18.0.0"
     },
-    "version": "0.0.0"
+    "version": "0.0.0",
+    "packageManager": "yarn@4.1.1"
 }

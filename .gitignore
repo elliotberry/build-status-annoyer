@@ -1,6 +1,7 @@
 #wrangler (cf workers)
 .wrangler
 # Compiled source
+.yarn
 *.com
 *.class
 *.dll
