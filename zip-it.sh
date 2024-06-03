@@ -1,0 +1,1 @@
+zip -r build-sound-server.zip build-sound-server -x "*.git/*" -x "node_modules/*" -x "build-sound-server/.clinic/*"
