@@ -1,8 +1,9 @@
 {
-    "name": "build-sound-server",
+    "name": "build-status-annoyer",
     "main": "./index.js",
     "author": "dad",
     "license": "The Unlicense",
+    "version": "0.0.3",
     "scripts": {
         "dev": "pm2-dev index.js --watch --ignore node_modules --ignore ./*/**/*.mp3",
         "start": "pm2 start ./prod.pm2.json",
@@ -24,7 +25,8 @@
         "eslint-plugin-prettier": "^5.2.1",
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "eslint-plugin-unicorn": "^55.0.0",
-        "prettier": "^3.3.3"
+        "prettier": "^3.3.3",
+        "release-it": "^17.6.0"
     },
     "prettier": {
         "trailingComma": "es5",
@@ -32,9 +34,7 @@
         "semi": false,
         "singleQuote": true
     },
-   
     "engines": {
         "node": ">=18.0.0"
-    },
-    "version": "0.0.3"
+    }
 }
