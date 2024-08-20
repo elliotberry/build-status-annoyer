@@ -15,13 +15,13 @@
         "dotenv": "^16.4.5",
         "pm2": "^5.4.2",
         "pretty-ms": "^9.1.0",
-        "winston": "^3.13.1"
+        "winston": "^3.14.2"
     },
     "devDependencies": {
-        "@stylistic/eslint-plugin-js": "^2.6.0",
-        "eslint": "^9.8.0",
+        "@stylistic/eslint-plugin-js": "^2.6.4",
+        "eslint": "^9.9.0",
         "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-perfectionist": "^3.0.0",
+        "eslint-plugin-perfectionist": "^3.2.0",
         "eslint-plugin-prettier": "^5.2.1",
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "eslint-plugin-unicorn": "^55.0.0",
