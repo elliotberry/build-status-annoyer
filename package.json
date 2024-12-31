@@ -12,7 +12,7 @@
     },
     "type": "module",
     "dependencies": {
-        "dotenv": "^16.4.5",
+        "dotenv": "^16.4.7",
         "pm2": "^5.4.2",
         "pretty-ms": "^9.1.0",
         "winston": "^3.15.0"
