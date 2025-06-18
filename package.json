@@ -1,5 +1,5 @@
 {
-    "name": "build-status-annoyer",
+    "name": "home-alerts-server",
     "main": "./index.js",
     "author": "dad",
     "license": "The Unlicense",

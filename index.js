@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import http from 'node:http'
-
+import play from './lib/play-file.js'
 import doPlay from './lib/do-play.js'
 import home from './lib/home.js'
 import Logger from './lib/logger.js'
@@ -13,13 +13,18 @@ const server = http.createServer(async (request, response) => {
         log = new Logger()
         request.log = log;
 
-     //   await logRequestDetails(request)
+   //   await logRequestDetails(request)
         if (request.method === 'GET' && request.url === '/') {
             request.log.info('GET /')
             await home(request, response)
         } else if (request.method === 'POST' && request.url === '/') {
             request.log.info('POST /')
             await doPlay(request, response)
+        }
+            else if (request.method === 'POST' && request.url === '/motion') {
+                request.log.info('POST /motion')
+                await play("./static/bell.mp3")
+            }
         } else {
             response.writeHead(404, { 'Content-Type': 'text/plain' });
             response.end('Not Found');
